@@ -99,7 +99,7 @@ const DisclaimerBanner = ({ onClose }) => {
   return (
     <div className="fixed inset-x-0 bottom-0 bg-gray-900 text-stone-100 p-3 text-center shadow-lg z-50 flex items-center justify-center flex-wrap">
       <p className="text-xs md:text-sm mr-4 mb-2 md:mb-0"> {/* Adjusted font size */}
-        **Disclaimer:** The information provided on this website is based on lived experiences and research. The owner is not a physician, psychologist, or psychiatrist. For immediate assistance, please contact the <a href="https://chat.988lifeline.org/" target="_blank" rel="noopener noreferrer" className="underline text-stone-100 hover:text-white">988 Suicide & Crisis Lifeline</a> or the National Mental Health Hotline at 866-903-3787 for free, confidential, 24/7 support. 
+        **Disclaimer:** The information provided on this website is based on lived experiences and research. The owner is not a physician, psychologist, or psychiatrist. For immediate assistance, please contact the <a href="https://chat.988lifeline.org/" target="_blank" rel="noopener noreferrer" className="underline text-stone-100 hover:text-white">988 Suicide & Crisis Lifeline</a> or the National Mental Health Hotline at 866-903-3787 for free, confidential, 24/7 support. All content has been cited appropriately.
       </p>
       <button
         onClick={onClose}
@@ -160,14 +160,14 @@ function App() {
     // Apply new font (Playfair Display for headers, Lora for body) and base background color
     // Add Google Fonts imports in the head of your HTML file:
     // <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lora:wght@400;600;700&display=swap" rel="stylesheet">
-    <div className="min-h-screen bg-stone-50 font-lora text-stone-700">
+    <div className="min-h-screen bg-[#CAE4DB] font-lora text-[#00303F]"> {/* Morning Sky background, Cerulean text */}
       {/* Navigation Bar */}
       <nav className="bg-white shadow-md py-4 px-6 fixed w-full z-10 top-0">
         <div className="container mx-auto flex flex-wrap justify-between items-center">
           {/* Brand Logo/Name */}
           <button
             onClick={(e) => handleNavLinkClick('home', e)}
-            className="text-2xl font-playfair font-bold text-stone-700 hover:text-stone-900 focus:outline-none"
+            className="text-2xl font-playfair font-bold text-[#00303F] hover:text-gray-900 focus:outline-none" /* Cerulean text */
             aria-label="Simply Divergent Home"
           >
             Simply Divergent
@@ -193,19 +193,19 @@ function App() {
       {showDisclaimer && <DisclaimerBanner onClose={handleCloseDisclaimer} />}
 
       {/* Footer Section */}
-      <footer className="bg-stone-800 text-white py-6 px-6">
+      <footer className="bg-[#00303F] text-[#CAE4DB] py-6 px-6"> {/* Cerulean background, Morning Sky text */}
         <div className="container mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left">
           <p>&copy; {new Date().getFullYear()} Simply Divergent. All rights reserved.</p>
           <div className="flex space-x-4 mt-4 md:mt-0">
             <button
               onClick={(e) => handleNavLinkClick('terms', e)}
-              className="text-stone-300 hover:text-white transition duration-300 focus:outline-none"
+              className="text-[#7A9D96] hover:text-white transition duration-300 focus:outline-none" /* Mist text */
             >
               Terms & Conditions
             </button>
             <button
               onClick={(e) => handleNavLinkClick('privacy', e)}
-              className="text-stone-300 hover:text-white transition duration-300 focus:outline-none"
+              className="text-[#7A9D96] hover:text-white transition duration-300 focus:outline-none" /* Mist text */
             >
               Privacy Policy
             </button>
@@ -222,9 +222,9 @@ const NavLink = ({ page, currentPage, setActivePage, children }) => (
     onClick={(e) => setActivePage(page, e)}
     className={`px-3 py-2 rounded-md text-sm font-lora font-medium transition duration-300
       ${currentPage === page
-        ? 'bg-stone-700 text-white shadow-md'
-        : 'text-stone-700 hover:bg-stone-100 hover:text-stone-900'
-      } focus:outline-none focus:ring-2 focus:ring-stone-500 focus:ring-offset-2`}
+        ? 'bg-[#00303F] text-white shadow-md' /* Cerulean background */
+        : 'text-[#00303F] hover:bg-[#CAE4DB] hover:text-gray-900' /* Cerulean text, Morning Sky hover */
+      } focus:outline-none focus:ring-2 focus:ring-[#DCAE1D] focus:ring-offset-2`} /* Honey focus ring */
   >
     {children}
   </button>
@@ -234,13 +234,13 @@ const NavLink = ({ page, currentPage, setActivePage, children }) => (
 const HomePage = ({ setActivePage }) => (
   <section id="home" className="container mx-auto p-6">
     {/* Hero Section */}
-    <div className="relative bg-gradient-to-br from-stone-300 to-amber-300 text-stone-800 rounded-xl shadow-lg p-8 md:p-16 mb-12 overflow-hidden">
+    <div className="relative bg-gradient-to-br from-[#CAE4DB] to-[#7A9D96] text-[#00303F] rounded-xl shadow-lg p-8 md:p-16 mb-12 overflow-hidden"> {/* Morning Sky to Mist gradient */}
       {/* Background shapes for visual interest */}
       <div className="absolute inset-0 opacity-10">
         <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice">
-          <circle cx="20" cy="20" r="15" fill="currentColor" className="text-amber-200"></circle>
-          <circle cx="80" cy="50" r="20" fill="currentColor" className="text-stone-200"></circle>
-          <circle cx="40" cy="90" r="10" fill="currentColor" className="text-amber-100"></circle>
+          <circle cx="20" cy="20" r="15" fill="currentColor" className="text-[#7A9D96]"></circle> {/* Mist */}
+          <circle cx="80" cy="50" r="20" fill="currentColor" className="text-[#CAE4DB]"></circle> {/* Morning Sky */}
+          <circle cx="40" cy="90" r="10" fill="currentColor" className="text-[#CAE4DB]"></circle> {/* Morning Sky */}
         </svg>
       </div>
       <div className="relative z-10 text-center">
@@ -253,13 +253,13 @@ const HomePage = ({ setActivePage }) => (
         <div className="flex justify-center space-x-4 animate-fade-in-up delay-300">
           <button
             onClick={(e) => setActivePage('media', e)}
-            className="bg-stone-700 text-white px-8 py-3 rounded-full font-lora font-semibold text-lg shadow-lg hover:bg-stone-800 transform hover:scale-105 transition duration-300"
+            className="bg-[#00303F] text-white px-8 py-3 rounded-full font-lora font-semibold text-lg shadow-lg hover:bg-gray-800 transform hover:scale-105 transition duration-300" /* Cerulean button */
           >
             Explore My Content
           </button>
           <button
             onClick={(e) => setActivePage('contact', e)}
-            className="bg-transparent border-2 border-stone-700 text-stone-700 px-8 py-3 rounded-full font-lora font-semibold text-lg shadow-lg hover:bg-stone-700 hover:text-white transform hover:scale-105 transition duration-300"
+            className="bg-transparent border-2 border-[#00303F] text-[#00303F] px-8 py-3 rounded-full font-lora font-semibold text-lg shadow-lg hover:bg-[#00303F] hover:text-white transform hover:scale-105 transition duration-300" /* Cerulean border/text */
           >
             Connect for Services
           </button>
@@ -279,32 +279,32 @@ const HomePage = ({ setActivePage }) => (
     <div className="grid md:grid-cols-3 gap-8 mb-12">
       {/* Podcast Card */}
       <div className="bg-white rounded-xl shadow-lg p-6 text-center transform hover:scale-105 transition duration-300">
-        <div className="text-5xl text-amber-500 mb-4">
+        <div className="text-5xl text-[#DCAE1D] mb-4"> {/* Honey for icon */}
           <IconMic className="inline-block w-16 h-16" />
         </div>
         <h3 className="text-xl font-playfair font-bold text-gray-900 mb-3">The Experience Podcast</h3>
         <p className="text-gray-600 font-lora mb-4">Join conversations about neurodivergence, life, and leadership insights.</p>
-        <button onClick={(e) => setActivePage('media', e)} className="text-stone-700 hover:text-stone-900 font-lora font-semibold">Listen Now &rarr;</button>
+        <button onClick={(e) => setActivePage('media', e)} className="text-[#00303F] hover:text-gray-900 font-lora font-semibold">Listen Now &rarr;</button> {/* Cerulean text */}
       </div>
 
       {/* Book Card */}
       <div className="bg-white rounded-xl shadow-lg p-6 text-center transform hover:scale-105 transition duration-300">
-        <div className="text-5xl text-stone-600 mb-4">
+        <div className="text-5xl text-[#00303F] mb-4"> {/* Cerulean for icon */}
           <IconBook className="inline-block w-16 h-16" />
         </div>
         <h3 className="text-xl font-playfair font-bold text-gray-900 mb-3">Simply Divergent</h3>
         <p className="text-gray-600 font-lora mb-4">A personal story exploring bipolar disease and self-understanding.</p>
-        <button onClick={(e) => setActivePage('media', e)} className="text-stone-700 hover:text-stone-900 font-lora font-semibold">Learn More &rarr;</button>
+        <button onClick={(e) => setActivePage('media', e)} className="text-[#00303F] hover:text-gray-900 font-lora font-semibold">Learn More &rarr;</button> {/* Cerulean text */}
       </div>
 
       {/* Consulting Card */}
       <div className="bg-white rounded-xl shadow-lg p-6 text-center transform hover:scale-105 transition duration-300">
-        <div className="text-5xl text-amber-500 mb-4">
+        <div className="text-5xl text-[#DCAE1D] mb-4"> {/* Honey for icon */}
           <IconLightbulb className="inline-block w-16 h-16" />
         </div>
         <h3 className="text-xl font-playfair font-bold text-gray-900 mb-3">Consulting & Speaking</h3>
         <p className="text-gray-600 font-lora mb-4">Support for neurodivergent leaders and impactful public presentations.</p>
-        <button onClick={(e) => setActivePage('consulting', e)} className="text-stone-700 hover:text-stone-900 font-lora font-semibold">Explore Services &rarr;</button>
+        <button onClick={(e) => setActivePage('consulting', e)} className="text-[#00303F] hover:text-gray-900 font-lora font-semibold">Explore Services &rarr;</button> {/* Cerulean text */}
       </div>
     </div>
   </section>
@@ -342,7 +342,7 @@ const AboutPage = () => (
         <h3 className="text-2xl font-playfair font-bold text-gray-800 mb-6 text-center">Key Strengths</h3>
         <div className="flex flex-wrap justify-center gap-4">
           {['Influencing Others', 'Resilience through Challenges', 'Bipolar Lived Experience', 'ADHD Lived Experiences', 'Innovative Problem Solving', 'Determined Pursuit of Goals', 'Business Relationship Management'].map((skill, index) => (
-            <span key={index} className="bg-amber-100 text-amber-800 text-lg font-lora font-medium px-5 py-2 rounded-full shadow-sm">
+            <span key={index} className="bg-[#CAE4DB] text-[#00303F] text-lg font-lora font-medium px-5 py-2 rounded-full shadow-sm"> {/* Morning Sky background, Cerulean text */}
               {skill}
             </span>
           ))}
@@ -393,7 +393,7 @@ const MediaContentPage = () => {
         {/* The Experience Podcast Section */}
         <div className="mb-12 border-b pb-8 border-gray-200">
           <h3 className="text-3xl font-playfair font-bold text-gray-800 mb-6 flex items-center justify-center">
-            <span className="text-amber-500 mr-3">
+            <span className="text-[#DCAE1D] mr-3"> {/* Honey for icon */}
               <IconMic className="inline-block w-10 h-10" />
             </span> The Experience Podcast
           </h3>
@@ -407,7 +407,7 @@ const MediaContentPage = () => {
                 [Podcast Player Placeholder - Embed your latest episode here]
               </p>
               <div className="mt-4 text-center">
-                <button className="bg-stone-700 text-white px-6 py-2 rounded-full font-lora hover:bg-stone-800 transition duration-300">
+                <button className="bg-[#00303F] text-white px-6 py-2 rounded-full font-lora hover:bg-gray-800 transition duration-300"> {/* Cerulean button */}
                   Listen on Spotify
                 </button>
                 <button className="ml-4 bg-gray-700 text-white px-6 py-2 rounded-full font-lora hover:bg-gray-800 transition duration-300">
@@ -423,7 +423,7 @@ const MediaContentPage = () => {
                 <h5 className="font-playfair font-bold text-lg text-gray-900 mb-2">{episode.title}</h5>
                 <p className="text-gray-600 font-lora text-sm mb-1">Date: {episode.date}</p>
                 <p className="text-gray-600 font-lora text-sm mb-3">Topic: {episode.description}</p>
-                <button className="text-stone-700 hover:text-stone-900 font-lora text-sm font-semibold">Read Show Notes &rarr;</button>
+                <button className="text-[#00303F] hover:text-gray-900 font-lora text-sm font-semibold">Read Show Notes &rarr;</button> {/* Cerulean text */}
               </li>
             ))}
           </ul>
@@ -432,7 +432,7 @@ const MediaContentPage = () => {
         {/* Book Section - Updated text for non-Amazon purchase */}
         <div className="mb-12 border-b pb-8 border-gray-200">
           <h3 className="text-3xl font-playfair font-bold text-gray-800 mb-6 flex items-center justify-center">
-            <span className="text-stone-600 mr-3">
+            <span className="text-[#00303F] mr-3"> {/* Cerulean for icon */}
               <IconBook className="inline-block w-10 h-10" />
             </span> Simply Divergent
           </h3>
@@ -455,10 +455,10 @@ const MediaContentPage = () => {
                 <li>Strategies for self-management and well-being</li>
                 <li>Insights into the emotional and professional landscape</li>
               </ul>
-              <button className="bg-stone-700 text-white px-6 py-2 rounded-full font-lora hover:bg-stone-800 transition duration-300">
+              <button className="bg-[#00303F] text-white px-6 py-2 rounded-full font-lora hover:bg-gray-800 transition duration-300"> {/* Cerulean button */}
                 Find Out More
               </button>
-              <button className="ml-4 border border-stone-700 text-stone-700 px-6 py-2 rounded-full font-lora hover:bg-stone-50 transition duration-300">
+              <button className="ml-4 border border-[#00303F] text-[#00303F] px-6 py-2 rounded-full font-lora hover:bg-[#CAE4DB] transition duration-300"> {/* Cerulean border/text, Morning Sky hover */}
                 Contact for Purchase
               </button>
             </div>
@@ -468,7 +468,7 @@ const MediaContentPage = () => {
         {/* 100 Days of Feelings Section */}
         <div className="mb-12 border-b pb-8 border-gray-200">
           <h3 className="text-3xl font-playfair font-bold text-gray-800 mb-6 flex items-center justify-center">
-            <span className="text-amber-500 mr-3">
+            <span className="text-[#DCAE1D] mr-3"> {/* Honey for icon */}
               <IconImage className="inline-block w-10 h-10" />
             </span> 100 Days of Feelings
           </h3>
@@ -492,7 +492,7 @@ const MediaContentPage = () => {
             ))}
           </div>
           <div className="text-center mt-8">
-            <button className="bg-stone-700 text-white px-8 py-3 rounded-full font-lora hover:bg-stone-800 transition duration-300">
+            <button className="bg-[#00303F] text-white px-8 py-3 rounded-full font-lora hover:bg-gray-800 transition duration-300"> {/* Cerulean button */}
               View Full Gallery
             </button>
           </div>
@@ -501,7 +501,7 @@ const MediaContentPage = () => {
         {/* Training Presentations and Videos Section */}
         <div className="mb-12 border-b pb-8 border-gray-200">
           <h3 className="text-3xl font-playfair font-bold text-gray-800 mb-6 flex items-center justify-center">
-            <span className="text-brown-500 mr-3">
+            <span className="text-[#7A9D96] mr-3"> {/* Mist for icon */}
               <IconMegaphone className="inline-block w-10 h-10" />
             </span> Training & Presentations
           </h3>
@@ -514,12 +514,12 @@ const MediaContentPage = () => {
               <li key={index} className="bg-gray-50 rounded-lg p-5 shadow-sm hover:shadow-md transition duration-300">
                 <h5 className="font-playfair font-bold text-lg text-gray-900 mb-2">{title}</h5>
                 <p className="text-gray-600 font-lora text-sm">Details about this training session.</p>
-                <button className="mt-3 text-stone-700 hover:text-stone-900 font-lora text-sm font-semibold">Learn More &rarr;</button>
+                <button className="mt-3 text-[#00303F] hover:text-gray-900 font-lora text-sm font-semibold">Learn More &rarr;</button> {/* Cerulean text */}
               </li>
             ))}
           </ul>
           <div className="text-center mt-8">
-            <button className="bg-stone-700 text-white px-8 py-3 rounded-full font-lora hover:bg-stone-800 transition duration-300">
+            <button className="bg-[#00303F] text-white px-8 py-3 rounded-full font-lora hover:bg-gray-800 transition duration-300"> {/* Cerulean button */}
               View All Training Materials
             </button>
           </div>
@@ -529,7 +529,7 @@ const MediaContentPage = () => {
         {/* Neurodivergence Resources Section */}
         <div>
           <h3 className="text-3xl font-playfair font-bold text-gray-800 mb-6 flex items-center justify-center">
-            <span className="text-amber-500 mr-3">
+            <span className="text-[#DCAE1D] mr-3"> {/* Honey for icon */}
               <IconLightbulb className="inline-block w-10 h-10" />
             </span> Neurodivergence Resources
           </h3>
@@ -538,12 +538,12 @@ const MediaContentPage = () => {
           </p>
           <div className="grid md:grid-cols-2 gap-6">
             {['ADHD', 'Autism', 'Bipolar', 'Other Neurodivergencies'].map((topic, index) => (
-              <div key={index} className="bg-stone-100 rounded-xl p-6 shadow-sm hover:shadow-md transition duration-300">
+              <div key={index} className="bg-[#CAE4DB] rounded-xl p-6 shadow-sm hover:shadow-md transition duration-300"> {/* Morning Sky background */}
                 <h4 className="text-xl font-playfair font-semibold text-gray-900 mb-3">{topic}</h4>
                 <p className="text-gray-600 font-lora mb-4">
                   Explore articles and resources specific to {topic.toLowerCase()}. Learn more about the unique strengths and challenges.
                 </p>
-                <button className="text-stone-700 hover:text-stone-900 font-lora font-semibold">
+                <button className="text-[#00303F] hover:text-gray-900 font-lora font-semibold"> {/* Cerulean text */}
                   View {topic} Resources &rarr;
                 </button>
               </div>
@@ -568,8 +568,8 @@ const ConsultingServicesPage = () => (
       {/* Service Categories */}
       <div className="grid md:grid-cols-2 gap-10 mb-12">
         {/* Neurodivergent Leaders Consulting */}
-        <div className="bg-stone-100 rounded-xl p-8 shadow-md border border-stone-200">
-          <div className="text-6xl text-stone-700 mb-6 text-center">
+        <div className="bg-[#CAE4DB] rounded-xl p-8 shadow-md border border-[#7A9D96]"> {/* Morning Sky background, Mist border */}
+          <div className="text-6xl text-[#00303F] mb-6 text-center"> {/* Cerulean for icon */}
             <IconLightbulb className="inline-block w-16 h-16" />
           </div>
           <h3 className="text-3xl font-playfair font-bold text-gray-900 mb-4 text-center">Neurodivergent Leaders</h3>
@@ -583,15 +583,15 @@ const ConsultingServicesPage = () => (
             <li>Creating supportive and productive work environments</li>
           </ul>
           <div className="text-center">
-            <button className="bg-stone-700 text-white px-8 py-3 rounded-full font-lora font-semibold shadow-lg hover:bg-stone-800 transform hover:scale-105 transition duration-300">
+            <button className="bg-[#00303F] text-white px-8 py-3 rounded-full font-lora font-semibold shadow-lg hover:bg-gray-800 transform hover:scale-105 transition duration-300"> {/* Cerulean button */}
               Learn More & Book
             </button>
           </div>
         </div>
 
         {/* Public Speaking & Presentation */}
-        <div className="bg-amber-50 rounded-xl p-8 shadow-md border border-amber-200">
-          <div className="text-6xl text-amber-700 mb-6 text-center">
+        <div className="bg-[#DCAE1D] rounded-xl p-8 shadow-md border border-[#7A9D96]"> {/* Honey background, Mist border */}
+          <div className="text-6xl text-[#00303F] mb-6 text-center"> {/* Cerulean for icon */}
             <IconMegaphone className="inline-block w-16 h-16" />
           </div>
           <h3 className="text-3xl font-playfair font-bold text-gray-900 mb-4 text-center">Public Speaking & Events</h3>
@@ -605,7 +605,7 @@ const ConsultingServicesPage = () => (
             <li>Event coordination and program management</li>
           </ul>
           <div className="text-center">
-            <button className="bg-amber-600 text-white px-8 py-3 rounded-full font-lora font-semibold shadow-lg hover:bg-amber-700 transform hover:scale-105 transition duration-300">
+            <button className="bg-[#00303F] text-white px-8 py-3 rounded-full font-lora font-semibold shadow-lg hover:bg-gray-800 transform hover:scale-105 transition duration-300"> {/* Cerulean button */}
               Request Speaker
             </button>
           </div>
@@ -663,7 +663,7 @@ const ContactUsPage = () => {
               id="name"
               name="name"
               required
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-stone-500 focus:border-stone-500 sm:text-sm"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-[#DCAE1D] focus:border-[#DCAE1D] sm:text-sm" /* Honey focus ring */
             />
           </div>
           <div>
@@ -673,7 +673,7 @@ const ContactUsPage = () => {
               id="email"
               name="email"
               required
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-stone-500 focus:border-stone-500 sm:text-sm"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-[#DCAE1D] focus:border-[#DCAE1D] sm:text-sm" /* Honey focus ring */
             />
           </div>
           <div>
@@ -683,7 +683,7 @@ const ContactUsPage = () => {
               id="subject"
               name="subject"
               required
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-stone-500 focus:border-stone-500 sm:text-sm"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-[#DCAE1D] focus:border-[#DCAE1D] sm:text-sm" /* Honey focus ring */
             />
           </div>
           <div>
@@ -693,13 +693,13 @@ const ContactUsPage = () => {
               name="message"
               rows="5"
               required
-              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-stone-500 focus:border-stone-500 sm:text-sm"
+              className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-[#DCAE1D] focus:border-[#DCAE1D] sm:text-sm" /* Honey focus ring */
             ></textarea>
           </div>
           <div className="text-center">
             <button
               type="submit"
-              className="inline-flex justify-center py-3 px-8 border border-transparent shadow-sm text-lg font-lora font-medium rounded-full text-white bg-stone-700 hover:bg-stone-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-stone-500 transition duration-300"
+              className="inline-flex justify-center py-3 px-8 border border-transparent shadow-sm text-lg font-lora font-medium rounded-full text-white bg-[#00303F] hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#DCAE1D] transition duration-300" /* Cerulean button, Honey focus ring */
             >
               Send Message
             </button>
@@ -712,7 +712,7 @@ const ContactUsPage = () => {
         <div className="mt-10 text-center border-t pt-8 border-gray-200">
           <h3 className="text-xl font-playfair font-bold text-gray-800 mb-4">Direct Contact</h3>
           <p className="text-lg font-lora text-gray-700">
-            For direct inquiries, please email us at: <a href="mailto:kenneth@simplydivergent.org" className="text-stone-700 hover:underline">kenneth@simplydivergent.org</a>
+            For direct inquiries, please email us at: <a href="mailto:kenneth@simplydivergent.org" className="text-[#00303F] hover:underline">kenneth@simplydivergent.org</a> {/* Cerulean text */}
           </p>
         </div>
       </div>
@@ -762,7 +762,7 @@ const PrivacyPolicyPage = () => (
     <div className="bg-white rounded-xl shadow-lg p-8 md:p-12">
       <h2 className="text-4xl font-playfair font-extrabold text-gray-900 mb-8 text-center">Privacy Policy</h2>
       <div className="prose max-w-none font-lora text-gray-700 leading-relaxed">
-        <p>Your privacy is important to us. It is Simply Divergent's policy to respect your privacy regarding any information we may collect from you across our website, <a href="#" className="text-stone-700 hover:underline">simplydivergent.com</a>, and other sites we own and operate.</p>
+        <p>Your privacy is important to us. It is Simply Divergent's policy to respect your privacy regarding any information we may collect from you across our website, <a href="#" className="text-[#00303F] hover:underline">simplydivergent.com</a>, and other sites we own and operate.</p> {/* Cerulean text */}
 
         <h3>1. Information We Collect</h3>
         <p>We only ask for personal information when we truly need it to provide a service to you. We collect it by fair and lawful means, with your knowledge and consent. We also let you know why we’re collecting it and how it will be used.</p>
