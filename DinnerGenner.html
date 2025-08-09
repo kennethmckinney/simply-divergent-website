@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dinner-Genner</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .loader {
+            border-top-color: #3498db;
+            -webkit-animation: spin 1s linear infinite;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-500">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-3xl">
+        <header class="text-center mb-8">
+            <h1 class="text-4xl sm:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">Dinner-Genner</h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 mt-2">Tell me about your day, and I'll suggest what's for dinner!</p>
+        </header>
+
+        <main>
+            <div class="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 md:p-8">
+                <div class="space-y-6">
+                    <div>
+                        <label for="day-description" class="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">How was your day?</label>
+                        <textarea id="day-description" rows="4" class="w-full p-3 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition" placeholder="e.g., It was a long day at work, feeling a bit tired."></textarea>
+                    </div>
+                    <div>
+                        <label for="feeling" class="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">How are you feeling right now?</label>
+                        <textarea id="feeling" rows="2" class="w-full p-3 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition" placeholder="e.g., Relaxed, stressed, happy, adventurous..."></textarea>
+                    </div>
+                    <!-- Updated Dietary Preference Dropdown -->
+                    <div>
+                        <label for="dietary-preference" class="block text-lg font-medium text-gray-700 dark:text-gray-300 mb-2">Any dietary preferences?</label>
+                        <select id="dietary-preference" class="w-full p-3 bg-gray-100 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition">
+                            <option value="anything">I'll eat anything</option>
+                            <option value="mixed">Mixed (Meat & Veggie)</option>
+                            <option value="meat-lover">Meat-Lover</option>
+                            <option value="vegetarian">Vegetarian</option>
+                            <option value="vegan">Vegan</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mt-8 text-center">
+                    <button id="generate-btn" class="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transform hover:scale-105 transition-transform duration-300">
+                        Get Dinner Idea
+                    </button>
+                </div>
+            </div>
+
+            <div id="result-container" class="mt-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 md:p-8 hidden">
+                <div id="loader-container" class="text-center hidden">
+                    <div class="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-24 w-24 mx-auto"></div>
+                    <p class="mt-4 text-lg text-gray-600 dark:text-gray-400">Generating your delicious dinner...</p>
+                </div>
+                <div id="suggestion-content">
+                    <h2 class="text-3xl font-bold text-center mb-4 text-gray-800 dark:text-gray-200" id="dinner-title"></h2>
+                    <div class="w-full aspect-w-16 aspect-h-9 rounded-lg overflow-hidden shadow-md mb-6 bg-gray-200 dark:bg-gray-700">
+                         <img id="dinner-image" src="" alt="Cartoon of a dinner idea" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/e2e8f0/4a5568?text=Image+Not+Available';">
+                    </div>
+                    <p class="text-gray-700 dark:text-gray-300 text-lg" id="dinner-description"></p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const generateBtn = document.getElementById('generate-btn');
+        const resultContainer = document.getElementById('result-container');
+        const loaderContainer = document.getElementById('loader-container');
+        const suggestionContent = document.getElementById('suggestion-content');
+        const dinnerTitle = document.getElementById('dinner-title');
+        const dinnerImage = document.getElementById('dinner-image');
+        const dinnerDescription = document.getElementById('dinner-description');
+        const dayDescriptionInput = document.getElementById('day-description');
+        const feelingInput = document.getElementById('feeling');
+        const dietaryPreferenceInput = document.getElementById('dietary-preference');
+
+        generateBtn.addEventListener('click', getDinnerSuggestion);
+
+        async function getDinnerSuggestion() {
+            const dayDescription = dayDescriptionInput.value;
+            const feeling = feelingInput.value;
+            const diet = dietaryPreferenceInput.value;
+
+            if (!dayDescription || !feeling) {
+                alert('Please tell me about your day and how you are feeling.');
+                return;
+            }
+
+            resultContainer.classList.remove('hidden');
+            loaderContainer.classList.remove('hidden');
+            suggestionContent.classList.add('hidden');
+
+            try {
+                // Step 1: Create the specific instruction for the AI based on diet.
+                let dietInstruction = '';
+                if (diet === 'mixed') {
+                    dietInstruction = 'The meal suggestion must be something that can be easily adapted for both a meat-eater and a vegetarian (e.g., a dish where meat can be added or served on the side).';
+                } else if (diet !== 'anything') {
+                    dietInstruction = `The meal must be ${diet}.`;
+                }
+
+                const dinnerPrompt = `Based on this description of my day: "${dayDescription}" and how I'm feeling: "${feeling}", suggest a single, simple dinner idea. ${dietInstruction} Provide a short, one-sentence creative name for the dish and a one-paragraph, friendly description of why it's a good fit.`;
+                
+                const dinnerResponseText = await generateTextWithRetry(dinnerPrompt);
+
+                // Simple parsing of the response
+                const lines = dinnerResponseText.split('\\n');
+                const title = lines[0].replace(/\\*\\*/g, '').replace('Dinner Idea: ', '').trim();
+                const description = lines.slice(1).join(' ').trim();
+
+                dinnerTitle.textContent = title;
+                dinnerDescription.textContent = description;
+
+                // Step 2: Generate cartoon image from Imagen
+                const imagePrompt = `A vibrant, fun, cartoon-style illustration of ${title}. The style should be playful and appetizing, with bold outlines and bright colors. No text in the image.`;
+                
+                const imageUrl = await generateImageWithRetry(imagePrompt);
+                
+                dinnerImage.src = imageUrl;
+
+                loaderContainer.classList.add('hidden');
+                suggestionContent.classList.remove('hidden');
+
+            } catch (error) {
+                console.error('Error:', error);
+                loaderContainer.classList.add('hidden');
+                dinnerTitle.textContent = 'Oops!';
+                dinnerDescription.textContent = 'Something went wrong while generating your dinner idea. Please try again!';
+                dinnerImage.src = 'https://placehold.co/600x400/fecaca/991b1b?text=Error';
+                suggestionContent.classList.remove('hidden');
+            }
+        }
+
+        async function generateTextWithRetry(prompt, maxRetries = 3) {
+            let attempt = 0;
+            while (attempt < maxRetries) {
+                try {
+                    return await callGeminiAPI(prompt);
+                } catch (error) {
+                    attempt++;
+                    if (attempt >= maxRetries) throw error;
+                    await new Promise(res => setTimeout(res, 1000 * attempt));
+                }
+            }
+        }
+
+        async function generateImageWithRetry(prompt, maxRetries = 3) {
+            let attempt = 0;
+            while (attempt < maxRetries) {
+                try {
+                    return await callImagenAPI(prompt);
+                } catch (error) {
+                    attempt++;
+                    if (attempt >= maxRetries) throw error;
+                    await new Promise(res => setTimeout(res, 2000 * attempt));
+                }
+            }
+        }
+
+        async function callGeminiAPI(prompt) {
+            const apiKey = ""; 
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+            const payload = {
+                contents: [{
+                    role: "user",
+                    parts: [{ text: prompt }]
+                }]
+            };
+
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                throw new Error(`API call failed with status: ${response.status}`);
+            }
+
+            const result = await response.json();
+
+            if (result.candidates && result.candidates.length > 0 &&
+                result.candidates[0].content && result.candidates[0].content.parts &&
+                result.candidates[0].content.parts.length > 0) {
+                return result.candidates[0].content.parts[0].text;
+            } else {
+                throw new Error('Invalid response structure from Gemini API');
+            }
+        }
+
+        async function callImagenAPI(prompt) {
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${apiKey}`;
+            const payload = { 
+                instances: [{ prompt: prompt }],
+                parameters: { "sampleCount": 1 }
+            };
+
+            const response = await fetch(apiUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                throw new Error(`Imagen API call failed with status: ${response.status}`);
+            }
+
+            const result = await response.json();
+            
+            if (result.predictions && result.predictions.length > 0 && result.predictions[0].bytesBase64Encoded) {
+                return `data:image/png;base64,${result.predictions[0].bytesBase64Encoded}`;
+            } else {
+                throw new Error('Invalid response structure from Imagen API');
+            }
+        }
+    </script>
+</body>
+</html>
